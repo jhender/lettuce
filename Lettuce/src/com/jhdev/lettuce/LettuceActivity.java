@@ -58,7 +58,9 @@ public class LettuceActivity extends Activity {
 		
 		//Run a test Parse action
 		savePlace();
-		
+
+		//Show camera image taken
+		imgPreview = (ImageView) findViewById(R.id.imgPreview);		
 		
 		//Locate the button
 		uploadButton = (Button) findViewById(R.id.uploadButton);
@@ -67,41 +69,7 @@ public class LettuceActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				captureImage();
-			}
-			
-//			//dummy code that uploads an image to Parse
-//            public void onClick(View arg0) {
-//                // Locate the image in res > drawable-hdpi
-//                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-//                        R.drawable.ic_launcher);
-//                // Convert it to byte
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                // Compress image to lower quality scale 1 - 100
-//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                byte[] image = stream.toByteArray();
-// 
-//                // Create the ParseFile
-//                ParseFile file = new ParseFile("image.png", image);
-//                // Upload the image into Parse Cloud
-//                file.saveInBackground();
-// 
-//                // Create a New Class called "ImageUpload" in Parse
-//                ParseObject imgupload = new ParseObject("ImageUpload");
-// 
-//                // Create a column named "ImageName" and set the string
-//                imgupload.put("ImageName", "AndroidBegin Logo");
-// 
-//                // Create a column named "ImageFile" and insert the image
-//                imgupload.put("ImageFile", file);
-// 
-//                // Create the class and the columns
-//                imgupload.saveInBackground();
-// 
-//                // Show a simple toast message
-//                Toast.makeText(LettuceActivity.this, "Image Uploaded",
-//                        Toast.LENGTH_SHORT).show();
-//            }
-	
+			}				
 		});		
 	} //end OnCreate
 	
@@ -236,6 +204,41 @@ public class LettuceActivity extends Activity {
  
         return mediaFile;
     }
+    
+    
+    public void uploadImage () {
+		//dummy code that uploads an image to Parse
+          // Locate the image in res > drawable-hdpi
+          Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                  R.drawable.ic_launcher);
+          // Convert it to byte
+          ByteArrayOutputStream stream = new ByteArrayOutputStream();
+          // Compress image to lower quality scale 1 - 100
+          bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+          byte[] image = stream.toByteArray();
+
+          // Create the ParseFile
+          ParseFile file = new ParseFile("image.png", image);
+          // Upload the image into Parse Cloud
+          file.saveInBackground();
+
+          // Create a New Class called "ImageUpload" in Parse
+          ParseObject imgupload = new ParseObject("ImageUpload");
+
+          // Create a column named "ImageName" and set the string
+          imgupload.put("ImageName", "AndroidBegin Logo");
+
+          // Create a column named "ImageFile" and insert the image
+          imgupload.put("ImageFile", file);
+
+          // Create the class and the columns
+          imgupload.saveInBackground();
+
+          // Show a simple toast message
+          Toast.makeText(LettuceActivity.this, "Image Uploaded",
+                  Toast.LENGTH_SHORT).show();
+  }
+
     
 	
 	
