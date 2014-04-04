@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.ParseException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,7 +25,6 @@ import android.widget.Toast;
 import com.parse.ParseAnalytics;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 public class LettuceActivity extends Activity {
 	
@@ -35,7 +33,7 @@ public class LettuceActivity extends Activity {
 	TextView textView;	
 	Button uploadButton;	
 	
-	   // Activity request codes
+	// Activity request codes
     private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
     public static final int MEDIA_TYPE_IMAGE = 1;
  
@@ -43,10 +41,7 @@ public class LettuceActivity extends Activity {
     private static final String IMAGE_DIRECTORY_NAME = "Lettuce";
  
     private Uri fileUri; // file url to store image/video
- 
-    private ImageView imgPreview;
-    private Button btnCapturePicture;
-	
+    private ImageView imgPreview;	
 	
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +52,7 @@ public class LettuceActivity extends Activity {
 		ParseAnalytics.trackAppOpened(getIntent());
 		
 		//Run a test Parse action
-		savePlace();
+		//savePlace();
 
 		//Show camera image taken
 		imgPreview = (ImageView) findViewById(R.id.imgPreview);		
@@ -74,7 +69,7 @@ public class LettuceActivity extends Activity {
 	} //end OnCreate
 	
     /**
-     * Capturing Camera Image will lauch camera app requrest image capture
+     * Capturing Camera Image will launch camera app request image capture
      */
     private void captureImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -95,7 +90,7 @@ public class LettuceActivity extends Activity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
  
-        // save file url in bundle as it will be null on scren orientation
+        // save file url in bundle as it will be null on screen orientation
         // changes
         outState.putParcelable("file_uri", fileUri);
     }
