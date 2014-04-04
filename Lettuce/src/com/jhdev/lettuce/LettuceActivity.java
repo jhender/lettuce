@@ -2,7 +2,7 @@ package com.jhdev.lettuce;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -152,6 +152,10 @@ public class LettuceActivity extends Activity {
                     options);
  
             imgPreview.setImageBitmap(bitmap);
+            
+            // upload this file
+            uploadImage();
+            
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -193,7 +197,7 @@ public class LettuceActivity extends Activity {
  
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
-                Locale.getDefault()).format(new Date(0));
+                Locale.getDefault()).format(new Date());
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator
@@ -204,13 +208,27 @@ public class LettuceActivity extends Activity {
  
         return mediaFile;
     }
+   /**
+    *  ----------------END HELPER-------------------------
+    **/
     
     
     public void uploadImage () {
-		//dummy code that uploads an image to Parse
+		//code that uploads an image to Parse
+    	
+        // bitmap factory
+        BitmapFactory.Options options = new BitmapFactory.Options();
+
+        // downsizing image as it throws OutOfMemory Exception for larger
+        // images
+        options.inSampleSize = 8;
+        
+        Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
+
+//        imgPreview.setImageBitmap(bitmap);    	    
           // Locate the image in res > drawable-hdpi
-          Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                  R.drawable.ic_launcher);
+//          Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+          
           // Convert it to byte
           ByteArrayOutputStream stream = new ByteArrayOutputStream();
           // Compress image to lower quality scale 1 - 100
