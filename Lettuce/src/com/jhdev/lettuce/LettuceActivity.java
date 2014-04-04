@@ -4,27 +4,33 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseAnalytics;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class LettuceActivity extends Activity {
 	
@@ -42,6 +48,12 @@ public class LettuceActivity extends Activity {
  
     private Uri fileUri; // file url to store image/video
     private ImageView imgPreview;	
+    
+    GridView gridview;
+    List<ParseObject> ob;
+    ProgressDialog mProgressDialog;
+    GridViewAdapter adapter;
+    private List<PhotoList> photoarraylist = null;
 	
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +78,8 @@ public class LettuceActivity extends Activity {
 				captureImage();
 			}				
 		});		
+		
+		new RemoteDataTask().execute();
 	} //end OnCreate
 	
     /**
@@ -113,7 +127,10 @@ public class LettuceActivity extends Activity {
             if (resultCode == RESULT_OK) {
                 // successfully captured the image
                 // display it in image view
-                previewCapturedImage();
+            	
+            	uploadImage();
+                //previewCapturedImage();
+            	
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled Image capture
                 Toast.makeText(getApplicationContext(),
@@ -128,33 +145,33 @@ public class LettuceActivity extends Activity {
         }         
     }
  
-    /**
-     * Display image from a path to ImageView
-     */
-    private void previewCapturedImage() {
-        try {
-            // hide video preview 
-            imgPreview.setVisibility(View.VISIBLE);
- 
-            // bitmap factory
-            BitmapFactory.Options options = new BitmapFactory.Options();
- 
-            // downsizing image as it throws OutOfMemory Exception for larger
-            // images
-            options.inSampleSize = 8;
- 
-            final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
-                    options);
- 
-            imgPreview.setImageBitmap(bitmap);
-            
-            // upload this file
-            uploadImage();
-            
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * Display image from a path to ImageView
+//     */
+//    private void previewCapturedImage() {
+//        try {
+//            // hide video preview 
+//            imgPreview.setVisibility(View.VISIBLE);
+// 
+//            // bitmap factory
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+// 
+//            // downsizing image as it throws OutOfMemory Exception for larger
+//            // images
+//            options.inSampleSize = 8;
+// 
+//            final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
+//                    options);
+// 
+//            imgPreview.setImageBitmap(bitmap);
+//            
+//            // upload this file
+//            uploadImage();
+//            
+//        } catch (NullPointerException e) {
+//            e.printStackTrace();
+//        }
+//    }
  
 
 
@@ -227,7 +244,7 @@ public class LettuceActivity extends Activity {
           // Convert it to byte
           ByteArrayOutputStream stream = new ByteArrayOutputStream();
           // Compress image to lower quality scale 1 - 100
-          bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+          bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
           byte[] image = stream.toByteArray();
 
           // Create the ParseFile
@@ -235,11 +252,12 @@ public class LettuceActivity extends Activity {
           // Upload the image into Parse Cloud
           file.saveInBackground();
 
-          // Create a New Class called "ImageUpload" in Parse
+          // Create a New Class called "Photo" in Parse
           ParseObject imgupload = new ParseObject("ImageUpload");
 
           // Create a column named "ImageName" and set the string
-          imgupload.put("ImageName", "AndroidBegin Logo");
+          // TODO change the name to date format like above          
+          imgupload.put("ImageName", "ImageName");
 
           // Create a column named "ImageFile" and insert the image
           imgupload.put("Photo", file);
@@ -261,6 +279,62 @@ public class LettuceActivity extends Activity {
 		post.put("placeCoordinates", "1.232,1.232");
 		post.saveInBackground();
 	}
+	
+    // RemoteDataTask AsyncTask
+    private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Create a progressdialog
+            mProgressDialog = new ProgressDialog(LettuceActivity.this);
+            // Set progressdialog title
+            // mProgressDialog.setTitle("");
+            // Set progressdialog message
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(false);
+            // Show progressdialog
+            mProgressDialog.show();
+        }
+ 
+        @Override
+        protected Void doInBackground(Void... params) {
+            // Create the array
+            photoarraylist = new ArrayList<PhotoList>();
+            try {
+                // Locate the class table named "ImageUpload" in Parse.com
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+                        "ImageUpload");
+                // Locate the column named "position" in Parse.com and order list
+                // by ascending
+                query.orderByDescending("createdAt");
+                ob = query.find();
+                for (ParseObject country : ob) {
+                    ParseFile image = (ParseFile) country.get("Photo");
+                    PhotoList map = new PhotoList();
+                    map.setPhoto(image.getUrl());
+                    photoarraylist.add(map);
+                }
+            } catch (ParseException e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return null;
+        }
+ 
+        @Override
+        protected void onPostExecute(Void result) {
+            // Locate the gridview in gridview_main.xml
+            gridview = (GridView) findViewById(R.id.gridview);
+            // Pass the results into ListViewAdapter.java
+            adapter = new GridViewAdapter(LettuceActivity.this,
+                    photoarraylist);
+            // Binds the Adapter to the ListView
+            gridview.setAdapter(adapter);
+            // TODO adapter problem
+            // Close the progressdialog
+            mProgressDialog.dismiss();
+        }
+    }
 	
 	
 }
