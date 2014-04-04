@@ -50,7 +50,7 @@ public class LettuceActivity extends Activity {
     private ImageView imgPreview;	
     
     GridView gridview;
-    List<ParseObject> photos;
+    List<ParseObject> ob;
     ProgressDialog mProgressDialog;
     GridViewAdapter adapter;
     private List<PhotoList> photoarraylist = null;
@@ -250,13 +250,13 @@ public class LettuceActivity extends Activity {
           file.saveInBackground();
 
           // Create a New Class called "Photo" in Parse
-          ParseObject imgupload = new ParseObject("Photo");
+          ParseObject imgupload = new ParseObject("ImageUpload");
 
           // Create a column named "ImageName" and set the string
           imgupload.put("ImageName", "AndroidBegin Logo");
 
           // Create a column named "ImageFile" and insert the image
-          imgupload.put("ImageFile", file);
+          imgupload.put("Photo", file);
 
           // Create the class and the columns
           imgupload.saveInBackground();
@@ -297,15 +297,15 @@ public class LettuceActivity extends Activity {
             // Create the array
             photoarraylist = new ArrayList<PhotoList>();
             try {
-                // Locate the class table named "PhotoUpload" in Parse.com
+                // Locate the class table named "ImageUpload" in Parse.com
                 ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-                        "PhotoUpload");
+                        "ImageUpload");
                 // Locate the column named "position" in Parse.com and order list
                 // by ascending
                 query.orderByAscending("createdAt");
-                photos = query.find();
-                for (ParseObject country : photos) {
-                    ParseFile image = (ParseFile) country.get("ImageFile");
+                ob = query.find();
+                for (ParseObject country : ob) {
+                    ParseFile image = (ParseFile) country.get("Photo");
                     PhotoList map = new PhotoList();
                     map.setPhoto(image.getUrl());
                     photoarraylist.add(map);
@@ -326,6 +326,7 @@ public class LettuceActivity extends Activity {
                     photoarraylist);
             // Binds the Adapter to the ListView
             gridview.setAdapter(adapter);
+            // TODO adapter problem
             // Close the progressdialog
             mProgressDialog.dismiss();
         }
