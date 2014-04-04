@@ -250,10 +250,7 @@ public class LettuceActivity extends Activity {
           // Show a simple toast message
           Toast.makeText(LettuceActivity.this, "Image Uploaded",
                   Toast.LENGTH_SHORT).show();
-  }
-
-    
-	
+  }	
 	
 	
 	// Test parse action
