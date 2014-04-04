@@ -242,7 +242,7 @@ public class LettuceActivity extends Activity {
           imgupload.put("ImageName", "AndroidBegin Logo");
 
           // Create a column named "ImageFile" and insert the image
-          imgupload.put("ImageFile", file);
+          imgupload.put("Photo", file);
 
           // Create the class and the columns
           imgupload.saveInBackground();
