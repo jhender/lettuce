@@ -127,7 +127,10 @@ public class LettuceActivity extends Activity {
             if (resultCode == RESULT_OK) {
                 // successfully captured the image
                 // display it in image view
-                previewCapturedImage();
+            	
+            	uploadImage();
+                //previewCapturedImage();
+            	
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled Image capture
                 Toast.makeText(getApplicationContext(),
@@ -142,33 +145,33 @@ public class LettuceActivity extends Activity {
         }         
     }
  
-    /**
-     * Display image from a path to ImageView
-     */
-    private void previewCapturedImage() {
-        try {
-            // hide video preview 
-            imgPreview.setVisibility(View.VISIBLE);
- 
-            // bitmap factory
-            BitmapFactory.Options options = new BitmapFactory.Options();
- 
-            // downsizing image as it throws OutOfMemory Exception for larger
-            // images
-            options.inSampleSize = 8;
- 
-            final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
-                    options);
- 
-            imgPreview.setImageBitmap(bitmap);
-            
-            // upload this file
-            uploadImage();
-            
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * Display image from a path to ImageView
+//     */
+//    private void previewCapturedImage() {
+//        try {
+//            // hide video preview 
+//            imgPreview.setVisibility(View.VISIBLE);
+// 
+//            // bitmap factory
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+// 
+//            // downsizing image as it throws OutOfMemory Exception for larger
+//            // images
+//            options.inSampleSize = 8;
+// 
+//            final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
+//                    options);
+// 
+//            imgPreview.setImageBitmap(bitmap);
+//            
+//            // upload this file
+//            uploadImage();
+//            
+//        } catch (NullPointerException e) {
+//            e.printStackTrace();
+//        }
+//    }
  
 
 
@@ -241,7 +244,7 @@ public class LettuceActivity extends Activity {
           // Convert it to byte
           ByteArrayOutputStream stream = new ByteArrayOutputStream();
           // Compress image to lower quality scale 1 - 100
-          bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+          bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
           byte[] image = stream.toByteArray();
 
           // Create the ParseFile
@@ -253,7 +256,8 @@ public class LettuceActivity extends Activity {
           ParseObject imgupload = new ParseObject("ImageUpload");
 
           // Create a column named "ImageName" and set the string
-          imgupload.put("ImageName", "AndroidBegin Logo");
+          // TODO change the name to date format like above          
+          imgupload.put("ImageName", "ImageName");
 
           // Create a column named "ImageFile" and insert the image
           imgupload.put("Photo", file);
@@ -284,7 +288,7 @@ public class LettuceActivity extends Activity {
             // Create a progressdialog
             mProgressDialog = new ProgressDialog(LettuceActivity.this);
             // Set progressdialog title
-            mProgressDialog.setTitle("Parse.com GridView Tutorial");
+            // mProgressDialog.setTitle("");
             // Set progressdialog message
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
@@ -302,7 +306,7 @@ public class LettuceActivity extends Activity {
                         "ImageUpload");
                 // Locate the column named "position" in Parse.com and order list
                 // by ascending
-                query.orderByAscending("createdAt");
+                query.orderByDescending("createdAt");
                 ob = query.find();
                 for (ParseObject country : ob) {
                     ParseFile image = (ParseFile) country.get("Photo");

@@ -21,9 +21,9 @@ public class SingleItemView extends Activity {
         photo = i.getStringExtra("photo");
  
         // Locate the ImageView in singleitemview.xml
-        ImageView imgphone = (ImageView) findViewById(R.id.photo);
+        ImageView imgphoto = (ImageView) findViewById(R.id.photo);
  
         // Load image into the ImageView
-        imageLoader.DisplayImage(photo, imgphone);
+        imageLoader.DisplayImage(photo, imgphoto);
     }
 }
