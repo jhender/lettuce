@@ -21,6 +21,7 @@ public class GridViewAdapter extends BaseAdapter {
    ImageLoader imageLoader;
    private List<PhotoList> photoarraylist = null;
    private ArrayList<PhotoList> arraylist;
+   SquareImageView squareImageView;
 
    public GridViewAdapter(Context context, List<PhotoList> photoarraylist) {
        this.context = context;
@@ -57,6 +58,8 @@ public class GridViewAdapter extends BaseAdapter {
            view = inflater.inflate(R.layout.gridview_item, null);
            // Locate the ImageView in gridview_item.xml
            holder.photo = (ImageView) view.findViewById(R.id.photo);
+           //squareImageView = (SquareImageView) view.findViewById(R.id.photo); 
+           //holder.photo = (SquareImageView) view.findViewById(R.id.photo);   maybe this is done in the imageLoader.DisplayImage instead
            view.setTag(holder);
        } else {
            holder = (ViewHolder) view.getTag();

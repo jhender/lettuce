@@ -3,6 +3,8 @@ package com.jhdev.lettuce;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 import android.widget.ImageView;
  
 public class SingleItemView extends Activity {
@@ -15,6 +17,8 @@ public class SingleItemView extends Activity {
         super.onCreate(savedInstanceState);
         // Get the view from singleitemview.xml
         setContentView(R.layout.singleitemview);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
  
         Intent i = getIntent();
         // Get the intent from ListViewAdapter
@@ -26,4 +30,21 @@ public class SingleItemView extends Activity {
         // Load image into the ImageView
         imageLoader.DisplayImage(photo, imgphoto);
     }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+            
+//        case R.id.take_picture:
+//            captureImage();
+//            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    
+    
 }
