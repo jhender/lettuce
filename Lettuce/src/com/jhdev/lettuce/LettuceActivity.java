@@ -34,6 +34,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 public class LettuceActivity extends Activity {
 	
@@ -367,9 +368,30 @@ public class LettuceActivity extends Activity {
             case R.id.Refresh:
                 Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
             	return true;
+            case R.id.Login:
+            	parseLogin();
+    			//return true;
+            case R.id.Logout:
+    			parseLogout();
+    			return true; 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    
+    // User login to Parse.com back end TODO check if user is logged in
+    private void parseLogin () {
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+		finish();
+    }
+    
+    // User logout from Parse.com back end. TODO check if user is logged in?
+    private void parseLogout () {
+		ParseUser.logOut();
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+		finish();
     }
     
 	

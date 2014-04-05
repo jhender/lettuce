@@ -27,5 +27,14 @@
         android:orderInCategory="60"
         android:showAsAction="ifRoom"
         android:title="Refresh"/>
-    
+    <item
+        android:id="@+id/Login"
+        android:orderInCategory="550"
+        android:showAsAction="ifRoom"
+        android:title="Login"/>
+    <item
+        android:id="@+id/Logout"
+        android:orderInCategory="110"
+        android:showAsAction="never"
+        android:title="Logout"/>    
 </menu>
