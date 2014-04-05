@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:onClick="signIn"
-            android:text="@string/sign_in_label" />
+            android:text="@string/login_label" />
     </LinearLayout>
 
     <Button

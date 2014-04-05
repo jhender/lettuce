@@ -381,13 +381,19 @@ public class LettuceActivity extends Activity {
     
     // User login to Parse.com back end TODO check if user is logged in
     private void parseLogin () {
-		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
-		finish();
+		ParseUser currentUser = ParseUser.getCurrentUser();
+    	if (currentUser == null) {    			
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+			finish();
+    	} else {
+            Toast.makeText(this, "You are already logged in.", Toast.LENGTH_SHORT).show();
+            //TODO need to return some answer. return true;
+    	}
     }
     
     // User logout from Parse.com back end. TODO check if user is logged in?
-    private void parseLogout () {
+    private void parseLogout () {    	
 		ParseUser.logOut();
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
