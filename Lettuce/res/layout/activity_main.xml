@@ -23,10 +23,10 @@
 	        android:layout_height="fill_parent"
 	        android:columnWidth="100dp"
 	        android:gravity="center"
-	        android:horizontalSpacing="2dp"
+	        android:horizontalSpacing="1dp"
 	        android:numColumns="auto_fit"
 	        android:stretchMode="columnWidth"
-	        android:verticalSpacing="2dp" />
+	        android:verticalSpacing="1dp" />
 	 
 	</RelativeLayout>
         
@@ -39,18 +39,18 @@
          android:layout_gravity="bottom"
          android:orientation="vertical" >
 
-         <Button
+<!--          <Button
              android:id="@+id/uploadButton"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="Take Pic" />
+             android:text="Take Pic" /> -->
     </LinearLayout>
 
-     <ImageView
+<!--      <ImageView
          android:id="@+id/imgPreview"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         />
+         /> -->
 
 </FrameLayout>
 

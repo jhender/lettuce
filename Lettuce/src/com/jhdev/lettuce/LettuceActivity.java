@@ -19,6 +19,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -67,18 +70,18 @@ public class LettuceActivity extends Activity {
 		//savePlace();
 
 		//Show camera image taken
-		imgPreview = (ImageView) findViewById(R.id.imgPreview);		
+		//imgPreview = (ImageView) findViewById(R.id.imgPreview);		
 		
-		//Locate the button
-		uploadButton = (Button) findViewById(R.id.uploadButton);
-		//Capture button click
-		uploadButton.setOnClickListener(new View.OnClickListener() {	
-			@Override
-			public void onClick(View arg0) {
-				captureImage();
-			}				
-		});		
-		
+//		//Locate the button
+//		uploadButton = (Button) findViewById(R.id.uploadButton);
+//		//Capture button click
+//		uploadButton.setOnClickListener(new View.OnClickListener() {	
+//			@Override
+//			public void onClick(View arg0) {
+//				captureImage();
+//			}				
+//		});		
+//		
 		new RemoteDataTask().execute();
 	} //end OnCreate
 	
@@ -336,5 +339,38 @@ public class LettuceActivity extends Activity {
         }
     }
 	
+    /**
+     *  Action Bar
+     */
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.take_picture:
+                captureImage();
+                return true;
+            case R.id.Profile:
+                Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
+            	return true;
+            case R.id.List:
+                Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
+            	return true;
+            case R.id.Refresh:
+                Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
+            	return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
 	
 }
