@@ -21,7 +21,6 @@ public class GridViewAdapter extends BaseAdapter {
    ImageLoader imageLoader;
    private List<PhotoList> photoarraylist = null;
    private ArrayList<PhotoList> arraylist;
-   SquareImageView squareImageView;
 
    public GridViewAdapter(Context context, List<PhotoList> photoarraylist) {
        this.context = context;
