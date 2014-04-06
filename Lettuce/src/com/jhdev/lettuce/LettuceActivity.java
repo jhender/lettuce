@@ -22,10 +22,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +37,7 @@ import com.parse.ParseUser;
 public class LettuceActivity extends Activity {
 	
 	//Define stuff
-	private List<ParseObject> Posts;	
+	//private List<ParseObject> Posts;	
 	TextView textView;	
 	Button uploadButton;	
 	
@@ -51,7 +49,7 @@ public class LettuceActivity extends Activity {
     private static final String IMAGE_DIRECTORY_NAME = "Lettuce";
  
     private Uri fileUri; // file url to store image/video
-    private ImageView imgPreview;	
+    //private ImageView imgPreview;	
     
     GridView gridview;
     List<ParseObject> ob;
@@ -311,6 +309,7 @@ public class LettuceActivity extends Activity {
                 // Locate the column named "position" in Parse.com and order list
                 // by ascending
                 query.orderByDescending("createdAt");
+                query.setLimit(15);
                 ob = query.find();
                 for (ParseObject country : ob) {
                     ParseFile image = (ParseFile) country.get("Photo");
@@ -372,9 +371,12 @@ public class LettuceActivity extends Activity {
             	parseLogin();
     			//return true;
             case R.id.Logout:
-    			parseLogout();
-    			return true; 
-            default:
+    			//parseLogout();
+        		ParseUser.logOut();
+        		Intent intent = new Intent(this, LoginActivity.class);
+        		startActivity(intent);
+        		finish();
+        		default:
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -385,7 +387,7 @@ public class LettuceActivity extends Activity {
     	if (currentUser == null) {    			
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
-			finish();
+			//finish();
     	} else {
             Toast.makeText(this, "You are already logged in.", Toast.LENGTH_SHORT).show();
             //TODO need to return some answer. return true;
