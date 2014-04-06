@@ -359,8 +359,8 @@ public class LettuceActivity extends Activity {
                 captureImage();
                 return true;
             case R.id.Profile:
-                Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
-            	return true;
+    			Intent intent2 = new Intent(this, ParseLoginActivity.class);
+    			startActivity(intent2);
             case R.id.List:
                 Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
             	return true;
