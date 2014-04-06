@@ -61,7 +61,11 @@
         <activity
             android:name="com.jhdev.lettuce.ParseSignup"
             android:label="@string/title_activity_parse_signup"
-            android:parentActivityName="com.jhdev.lettuce.ParseLoginActivity" >            
+            android:parentActivityName="com.jhdev.lettuce.ParseLoginActivity" >
+        </activity>
+        <activity
+            android:name="com.jhdev.lettuce.ParseForgetPassword"
+            android:label="@string/title_activity_parse_forget_password" >
         </activity>
     </application>
 

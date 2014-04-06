@@ -363,7 +363,9 @@ public class LettuceActivity extends Activity {
             	return true;
             case R.id.Login:
             	parseLogin();
+            	return true;
             case R.id.Logout:
+            	//TODO do not let Automatic Anonymous Users Log Out
     			//parseLogout();
         		ParseUser.logOut();
         		Intent intent = new Intent(this, ParseLoginActivity.class);
@@ -375,12 +377,17 @@ public class LettuceActivity extends Activity {
    
     // User login to Parse.com back end TODO check if user is logged in
     private void parseLogin () {
+    	
+    	//If Anonymous user is activated in ParseApplication.java, then currentUser is usually non null.
 		ParseUser currentUser = ParseUser.getCurrentUser();
-    	if (currentUser == null) {    			
+    	if (currentUser == null) {    
+    		
+            //Toast.makeText(this, "current User null", Toast.LENGTH_SHORT).show();
+
 			Intent intent = new Intent(this, ParseLoginActivity.class);
 			startActivity(intent);
     	} else {
-            Toast.makeText(this, "You are already logged in.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You are logged in.", Toast.LENGTH_SHORT).show();
             //TODO need to return some answer. return true;
     	}
     }
