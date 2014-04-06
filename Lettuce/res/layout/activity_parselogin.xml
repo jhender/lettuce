@@ -5,3 +5,5 @@
     android:layout_height="match_parent"
     tools:context="com.jhdev.lettuce.ParseLoginActivity"
     tools:ignore="MergeRootFrame" />
+
+    

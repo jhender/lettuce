@@ -16,4 +16,19 @@
     <string name="dont_have_an_account_label">Don\'t have an account? Register!</string>
     <string name="title_activity_test2">Test2Activity</string>
 
+    <!-- Login/Account creation screen -->
+    <string name="signIn">Sign In</string>
+    <string name="submit">Submit</string>
+    <string name="orText">Or</string>
+    <string name="createAccount">Create Account</string>
+    <string name="emailHint">Email</string>
+    <string name="usernameHint">Username</string>
+    <string name="passwordHint">Password</string>
+    <string name="confirmPasswordHint">Confirm Password</string>
+    <string name="title_activity_launcher">LauncherActivity</string>
+    <string name="changing_fragments">Changing Fragments</string>
+    <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="menu_settings">Settings</string>
+    
+    
 </resources>

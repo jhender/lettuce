@@ -14,10 +14,6 @@ import android.widget.TextView;
 import android.os.Build;
 
 public class ParseLoginActivity extends Activity {
-	
-	private EditText mUsernameField;
-	private EditText mPasswordField;
-	private TextView mErrorField;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +30,7 @@ public class ParseLoginActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.parselogin, menu);
+		getMenuInflater().inflate(R.menu.test2, menu);
 		return true;
 	}
 
@@ -61,7 +57,7 @@ public class ParseLoginActivity extends Activity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.activity_login,
+			View rootView = inflater.inflate(R.layout.fragment_parselogin,
 					container, false);
 			
 			//setContentView(R.layout.activity_login);

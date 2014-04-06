@@ -13,10 +13,10 @@
         android:showAsAction="always"
         android:title="Take Pic"/>
     <item
-        android:id="@+id/Profile"
+        android:id="@+id/PLogin"
         android:orderInCategory="80"
         android:showAsAction="ifRoom"
-        android:title="Profile"/>
+        android:title="ParseLogin"/>
     <item
         android:id="@+id/List"
         android:orderInCategory="70"

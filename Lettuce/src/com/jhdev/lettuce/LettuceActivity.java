@@ -358,7 +358,7 @@ public class LettuceActivity extends Activity {
             case R.id.take_picture:
                 captureImage();
                 return true;
-            case R.id.Profile:
+            case R.id.PLogin:
     			Intent intent2 = new Intent(this, ParseLoginActivity.class);
     			startActivity(intent2);
             case R.id.List:
