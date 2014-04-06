@@ -358,12 +358,6 @@ public class LettuceActivity extends Activity {
             case R.id.take_picture:
                 captureImage();
                 return true;
-            case R.id.PLogin:
-    			Intent intent2 = new Intent(this, ParseLoginActivity.class);
-    			startActivity(intent2);
-            case R.id.List:
-                Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
-            	return true;
             case R.id.Refresh:
                 Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
             	return true;
@@ -373,21 +367,20 @@ public class LettuceActivity extends Activity {
             case R.id.Logout:
     			//parseLogout();
         		ParseUser.logOut();
-        		Intent intent = new Intent(this, LoginActivity.class);
+        		Intent intent = new Intent(this, ParseLoginActivity.class);
         		startActivity(intent);
         		finish();
         		default:
                 return super.onOptionsItemSelected(item);
         }
     }
-    
+   
     // User login to Parse.com back end TODO check if user is logged in
     private void parseLogin () {
 		ParseUser currentUser = ParseUser.getCurrentUser();
     	if (currentUser == null) {    			
-			Intent intent = new Intent(this, LoginActivity.class);
+			Intent intent = new Intent(this, ParseLoginActivity.class);
 			startActivity(intent);
-			//finish();
     	} else {
             Toast.makeText(this, "You are already logged in.", Toast.LENGTH_SHORT).show();
             //TODO need to return some answer. return true;
@@ -399,7 +392,6 @@ public class LettuceActivity extends Activity {
 		ParseUser.logOut();
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
-		finish();
     }
     
 	

@@ -60,7 +60,8 @@
         </activity>
         <activity
             android:name="com.jhdev.lettuce.ParseSignup"
-            android:label="@string/title_activity_parse_signup" >
+            android:label="@string/title_activity_parse_signup"
+            android:parentActivityName="com.jhdev.lettuce.ParseLoginActivity" >            
         </activity>
     </application>
 
