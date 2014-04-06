@@ -35,7 +35,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class LettuceActivity extends Activity {
-	
+	 
 	//Define stuff
 	//private List<ParseObject> Posts;	
 	TextView textView;	
@@ -282,6 +282,12 @@ public class LettuceActivity extends Activity {
 		post.saveInBackground();
 	}
 	
+	/**
+	 * 
+	 * This loads the items for the gridview
+	 *
+	 */
+	
     // RemoteDataTask AsyncTask
     private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
         @Override
@@ -358,9 +364,10 @@ public class LettuceActivity extends Activity {
             case R.id.take_picture:
                 captureImage();
                 return true;
-//            case R.id.Refresh:
-//                Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
-//            	return true;
+            case R.id.Refresh:
+            	new RemoteDataTask().execute();
+                //Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
+            	return true;
             case R.id.Login:
             	parseLogin();
             	return true;

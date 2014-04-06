@@ -17,9 +17,10 @@
 
     <application
         android:name="com.jhdev.lettuce.ParseApplication"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_action_good"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:allowBackup="true" >
         <activity
             android:name="com.jhdev.lettuce.LettuceActivity"
             android:label="@string/title_activity_main"
@@ -34,7 +35,6 @@
             android:name="com.jhdev.lettuce.SingleItemView"
             android:parentActivityName="com.jhdev.lettuce.LettuceActivity"
             android:screenOrientation="portrait" >
-
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
