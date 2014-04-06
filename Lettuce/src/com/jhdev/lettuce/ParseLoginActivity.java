@@ -1,10 +1,23 @@
 package com.jhdev.lettuce;
 
+import java.util.Locale;
+
+import com.parse.LogInCallback;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.os.Build;
 
 public class ParseLoginActivity extends Activity {
@@ -47,53 +61,169 @@ public class ParseLoginActivity extends Activity {
 		btn_ForgetPass = (Button) findViewById(R.id.btn_ForgetPass);
 		mUserNameEditText = (EditText) findViewById(R.id.username);
 		mPasswordEditText = (EditText) findViewById(R.id.password);
+		
+		btn_LoginIn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+
+				// get Internet status
+				isInternetPresent = cd.isConnectingToInternet();
+				// check for Internet status
+				if (isInternetPresent) {
+					// Internet Connection is Present
+					// make HTTP requests
+					attemptLogin();
+				} else {
+					// Internet connection is not present
+					// Ask user to connect to Internet
+					showAlertDialog(ParseLoginActivity.this, "No Internet Connection", "You don't have internet connection.", false);
+				}
+
+			}
+		});
+
+		btn_SignUp.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent in =  new Intent(ParseLoginActivity.this, ParseSignup.class);
+				startActivity(in);
+			}
+		});
+		
+		btn_ForgetPass.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+//				Intent in =  new Intent(Login.this,ForgetParsePassword.class);
+//				startActivity(in);
+			}
+		});
+
 
 		
 	}
 
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
+		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.parse_login, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_parselogin,
-					container, false);
-			
-			//setContentView(R.layout.activity_login);
-
-//			mUsernameField = (EditText) findViewById(R.id.login_username);
-//			mPasswordField = (EditText) findViewById(R.id.login_password);
-//			mErrorField = (TextView) findViewById(R.id.error_messages);
-
-			return rootView;
-
+		// Handle item selection
+		switch (item.getItemId()) {
+//		case R.id.menu_forgot_password:
+//			forgotPassword();
+//			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	private void forgotPassword(){
+		//TODO
+	}
+	
+	public void attemptLogin() {
+
+		clearErrors();
+
+		// Store values at the time of the login attempt.
+		String username = mUserNameEditText.getText().toString();
+		String password = mPasswordEditText.getText().toString();
+
+		boolean cancel = false;
+		View focusView = null;
+
+		// Check for a valid password.
+		if (TextUtils.isEmpty(password)) {
+			mPasswordEditText.setError(getString(R.string.error_field_required));
+			focusView = mPasswordEditText;
+			cancel = true;
+		} else if (password.length() < 4) {
+			mPasswordEditText.setError(getString(R.string.error_invalid_password));
+			focusView =mPasswordEditText;
+			cancel = true;
+		}
+
+		// Check for a valid email address.
+		if (TextUtils.isEmpty(username)) {
+			mUserNameEditText.setError(getString(R.string.error_field_required));
+			focusView = mUserNameEditText;
+			cancel = true;
+		}
+
+		if (cancel) {
+			// There was an error; don't attempt login and focus the first
+			// form field with an error.
+			focusView.requestFocus();
+		} else {
+			// perform the user login attempt.
+			login(username.toLowerCase(Locale.getDefault()), password);
+		}
+	}
+
+	private void login(String lowerCase, String password) {
+		// TODO Auto-generated method stub
+		ParseUser.logInInBackground(lowerCase, password, new LogInCallback() {
+			@Override
+			public void done(ParseUser user, ParseException e) {
+				// TODO Auto-generated method stub
+				if(e == null)
+					loginSuccessful();
+				else
+					loginUnSuccessful();
+			}
+		});
+
+	}
+
+	protected void loginSuccessful() {
+		// TODO Auto-generated method stub
+		Intent in =  new Intent(ParseLoginActivity.this,LettuceActivity.class);
+		startActivity(in);
+	}
+	protected void loginUnSuccessful() {
+		// TODO Auto-generated method stub
+		Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+		showAlertDialog(ParseLoginActivity.this,"Login", "Username or Password is invalid.", false);
+	}
+
+	private void clearErrors(){
+		mUserNameEditText.setError(null);
+		mPasswordEditText.setError(null);
+	}
+
+	@SuppressWarnings("deprecation")
+	public void showAlertDialog(Context context, String title, String message, Boolean status) {
+		AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle(title);
+
+		// Setting Dialog Message
+		alertDialog.setMessage(message);
+
+		// Setting alert dialog icon
+		//alertDialog.setIcon(R.drawable.fail);
+
+		// Setting OK Button
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
+	}
+
 
 }
