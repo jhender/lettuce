@@ -363,14 +363,12 @@ public class LettuceActivity extends Activity {
             	return true;
             case R.id.Login:
             	parseLogin();
-    			//return true;
             case R.id.Logout:
     			//parseLogout();
         		ParseUser.logOut();
         		Intent intent = new Intent(this, ParseLoginActivity.class);
         		startActivity(intent);
-        		finish();
-        		default:
+        	default:
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -390,8 +388,6 @@ public class LettuceActivity extends Activity {
     // User logout from Parse.com back end. TODO check if user is logged in?
     private void parseLogout () {    	
 		ParseUser.logOut();
-		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
     }
     
 	

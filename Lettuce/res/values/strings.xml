@@ -34,5 +34,8 @@
     <string name="error_invalid_password">Error Invalid Password</string>
     <string name="error_invalid_confirm_password">Error Invalid Confirm Password</string>
     <string name="error_invalid_email">Error Invalid Email</string>
+    <string name="action_sign_in_short">Sign In</string>
+    <string name="action_register">Register</string>
+    <string name="prompt_password">Password</string>
 
 </resources>
