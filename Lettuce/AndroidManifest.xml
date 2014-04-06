@@ -52,11 +52,15 @@
         </activity>
         <activity
             android:name="com.jhdev.lettuce.ParseLoginActivity"
-            android:label="@string/title_activity_test2"
+            android:label="@string/title_activity_parselogin"
             android:parentActivityName="com.jhdev.lettuce.LettuceActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="LettuceActivity" />
+        </activity>
+        <activity
+            android:name="com.jhdev.lettuce.ParseSignup"
+            android:label="@string/title_activity_parse_signup" >
         </activity>
     </application>
 

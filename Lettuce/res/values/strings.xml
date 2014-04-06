@@ -14,7 +14,7 @@
     <string name="already_have_an_account_label">Already Have An Account? Log In!</string>
     <string name="login_label">Login</string>
     <string name="dont_have_an_account_label">Don\'t have an account? Register!</string>
-    <string name="title_activity_test2">Test2Activity</string>
+    <string name="title_activity_parselogin">ParseLoginActivity</string>
 
     <!-- Login/Account creation screen -->
     <string name="signIn">Sign In</string>
@@ -29,6 +29,6 @@
     <string name="changing_fragments">Changing Fragments</string>
     <string name="title_activity_create_account">CreateAccountActivity</string>
     <string name="menu_settings">Settings</string>
-    
-    
+    <string name="title_activity_parse_signup">ParseSignup</string>
+
 </resources>
