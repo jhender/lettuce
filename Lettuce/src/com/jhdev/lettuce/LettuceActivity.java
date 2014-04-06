@@ -358,9 +358,9 @@ public class LettuceActivity extends Activity {
             case R.id.take_picture:
                 captureImage();
                 return true;
-            case R.id.Refresh:
-                Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
-            	return true;
+//            case R.id.Refresh:
+//                Toast.makeText(this, "Not yet available", Toast.LENGTH_SHORT).show();
+//            	return true;
             case R.id.Login:
             	parseLogin();
             	return true;
@@ -374,7 +374,7 @@ public class LettuceActivity extends Activity {
                 return super.onOptionsItemSelected(item);
         }
     }
-   
+        
     // User login to Parse.com back end TODO check if user is logged in
     private void parseLogin () {
     	

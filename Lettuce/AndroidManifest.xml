@@ -32,7 +32,6 @@
         </activity>
         <activity
             android:name="com.jhdev.lettuce.SingleItemView"
-            android:label="View Item"
             android:parentActivityName="com.jhdev.lettuce.LettuceActivity"
             android:screenOrientation="portrait" >
 

@@ -6,12 +6,12 @@
         android:id="@+id/take_picture"
         android:orderInCategory="50"
         android:showAsAction="always"
-        android:title="Take Pic"/>
+        android:icon="@drawable/ic_action_camera"/>
     <item
         android:id="@+id/Refresh"
         android:orderInCategory="60"
         android:showAsAction="ifRoom"
-        android:title="Refresh"/>
+        android:icon="@drawable/ic_action_refresh"/>
     <item
         android:id="@+id/Login"
         android:orderInCategory="550"
