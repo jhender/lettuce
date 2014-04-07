@@ -38,5 +38,6 @@
     <string name="action_register">Register</string>
     <string name="prompt_password">Password</string>
     <string name="title_activity_parse_forget_password">ParseForgetPassword</string>
+    <string name="title_activity_post_create">Post</string>
 
 </resources>

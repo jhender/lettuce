@@ -244,32 +244,36 @@ public class LettuceActivity extends Activity {
           // Locate the image in res > drawable-hdpi
 //          Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
           
-          // Convert it to byte
-          ByteArrayOutputStream stream = new ByteArrayOutputStream();
-          // Compress image to lower quality scale 1 - 100
-          bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-          byte[] image = stream.toByteArray();
-
-          // Create the ParseFile
-          ParseFile file = new ParseFile(imageFileName, image);
-          // Upload the image into Parse Cloud
-          file.saveInBackground();
-
-          // Create a New Class called "Photo" in Parse
-          ParseObject imgupload = new ParseObject("ImageUpload");
-
-          // Create a column named "ImageName" and set the string          
-          imgupload.put("ImageName", imageFileName);
-
-          // Create a column named "ImageFile" and insert the image
-          imgupload.put("Photo", file);
-
-          // Create the class and the columns
-          imgupload.saveInBackground();
-
-          // Show a simple toast message
-          Toast.makeText(LettuceActivity.this, "Image Uploaded",
-                  Toast.LENGTH_SHORT).show();
+		// Convert it to byte
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		// Compress image to lower quality scale 1 - 100
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+		byte[] image = stream.toByteArray();
+		
+		// Create the ParseFile
+		ParseFile file = new ParseFile(imageFileName, image);
+		// Upload the image into Parse Cloud
+		file.saveInBackground();
+		  
+		Intent intent = new Intent(this, PostCreateActivity.class);
+		startActivity(intent);
+	          
+//          
+//          // Create a New Class called "Photo" in Parse
+//          ParseObject imgupload = new ParseObject("ImageUpload");
+//
+//          // Create a column named "ImageName" and set the string          
+//          imgupload.put("ImageName", imageFileName);
+//
+//          // Create a column named "ImageFile" and insert the image
+//          imgupload.put("Photo", file);
+//
+//          // Create the class and the columns
+//          imgupload.saveInBackground();
+//
+//          // Show a simple toast message
+//          Toast.makeText(LettuceActivity.this, "Image Uploaded",
+//                  Toast.LENGTH_SHORT).show();
   }	
 	
 	
