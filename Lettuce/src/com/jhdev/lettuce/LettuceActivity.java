@@ -372,11 +372,7 @@ public class LettuceActivity extends Activity {
             	parseLogin();
             	return true;
             case R.id.Logout:
-            	//TODO do not let Automatic Anonymous Users Log Out
-    			//parseLogout();
-        		ParseUser.logOut();
-        		Intent intent = new Intent(this, ParseLoginActivity.class);
-        		startActivity(intent);
+    			parseLogout();
         	default:
                 return super.onOptionsItemSelected(item);
         }
@@ -394,14 +390,17 @@ public class LettuceActivity extends Activity {
 			Intent intent = new Intent(this, ParseLoginActivity.class);
 			startActivity(intent);
     	} else {
+    		// seems like there is no reply callback
             Toast.makeText(this, "You are logged in.", Toast.LENGTH_SHORT).show();
-            //TODO need to return some answer. return true;
     	}
     }
     
-    // User logout from Parse.com back end. TODO check if user is logged in?
-    private void parseLogout () {    	
+    // User logout from Parse.com back end. 
+    private void parseLogout () {  
+    	//TODO check if user is logged in?; do not let Automatic Anonymous Users Log Out
 		ParseUser.logOut();
+		Intent intent = new Intent(this, ParseLoginActivity.class);
+		startActivity(intent);
     }
     
 	

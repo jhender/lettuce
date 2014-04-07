@@ -3,32 +3,21 @@ package com.jhdev.lettuce;
 import java.util.Locale;
 
 import com.parse.LogInCallback;
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Build;
 
 public class ParseLoginActivity extends Activity {
 	
@@ -66,8 +55,6 @@ public class ParseLoginActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
 				// get Internet status
 				isInternetPresent = cd.isConnectingToInternet();
 				// check for Internet status
@@ -88,7 +75,6 @@ public class ParseLoginActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent in =  new Intent(ParseLoginActivity.this, ParseSignup.class);
 				startActivity(in);
 			}
@@ -98,9 +84,8 @@ public class ParseLoginActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-//				Intent in =  new Intent(Login.this,ForgetParsePassword.class);
-//				startActivity(in);
+				Intent in =  new Intent(ParseLoginActivity.this,ParseForgetPassword.class);
+				startActivity(in);
 			}
 		});
 
@@ -109,29 +94,22 @@ public class ParseLoginActivity extends Activity {
 	}
 
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.parse_login, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-//		case R.id.menu_forgot_password:
-//			forgotPassword();
-//			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-	
-	private void forgotPassword(){
-		//TODO
-	}
-	
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		super.onCreateOptionsMenu(menu);
+//		getMenuInflater().inflate(R.menu.parse_login, menu);
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//		// Handle item selection
+//		switch (item.getItemId()) {
+//		default:
+//			return super.onOptionsItemSelected(item);
+//		}
+//	}
+//	
 	public void attemptLogin() {
 
 		clearErrors();
@@ -172,11 +150,9 @@ public class ParseLoginActivity extends Activity {
 	}
 
 	private void login(String lowerCase, String password) {
-		// TODO Auto-generated method stub
 		ParseUser.logInInBackground(lowerCase, password, new LogInCallback() {
 			@Override
 			public void done(ParseUser user, ParseException e) {
-				// TODO Auto-generated method stub
 				if(e == null)
 					loginSuccessful();
 				else
@@ -187,12 +163,10 @@ public class ParseLoginActivity extends Activity {
 	}
 
 	protected void loginSuccessful() {
-		// TODO Auto-generated method stub
 		Intent in =  new Intent(ParseLoginActivity.this,LettuceActivity.class);
 		startActivity(in);
 	}
 	protected void loginUnSuccessful() {
-		// TODO Auto-generated method stub
 		Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
 		showAlertDialog(ParseLoginActivity.this,"Login", "Username or Password is invalid.", false);
 	}
