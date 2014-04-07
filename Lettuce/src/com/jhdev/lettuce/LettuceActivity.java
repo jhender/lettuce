@@ -256,24 +256,9 @@ public class LettuceActivity extends Activity {
 		file.saveInBackground();
 		  
 		Intent intent = new Intent(this, PostCreateActivity.class);
-		startActivity(intent);
-	          
-//          
-//          // Create a New Class called "Photo" in Parse
-//          ParseObject imgupload = new ParseObject("ImageUpload");
-//
-//          // Create a column named "ImageName" and set the string          
-//          imgupload.put("ImageName", imageFileName);
-//
-//          // Create a column named "ImageFile" and insert the image
-//          imgupload.put("Photo", file);
-//
-//          // Create the class and the columns
-//          imgupload.saveInBackground();
-//
-//          // Show a simple toast message
-//          Toast.makeText(LettuceActivity.this, "Image Uploaded",
-//                  Toast.LENGTH_SHORT).show();
+		intent.setData(fileUri);
+		intent.putExtra("filename", imageFileName);
+		startActivityForResult(intent, 1);	          
   }	
 	
 	

@@ -40,4 +40,7 @@
     <string name="title_activity_parse_forget_password">ParseForgetPassword</string>
     <string name="title_activity_post_create">Post</string>
 
+    <string name="PostTitleCreate">Title</string>
+    <string name="postdescriptionhint">Share a description</string>
+    <string name="PostSaveButton">Save</string>
 </resources>
