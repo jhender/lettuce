@@ -39,7 +39,8 @@ public class LettuceActivity extends Activity {
 	//Define stuff
 	//private List<ParseObject> Posts;	
 	TextView textView;	
-	Button uploadButton;	
+	Button uploadButton;
+	static String imageFileName;
 	
 	// Activity request codes
     private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
@@ -136,7 +137,7 @@ public class LettuceActivity extends Activity {
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled Image capture
                 Toast.makeText(getApplicationContext(),
-                        "User cancelled image capture", Toast.LENGTH_SHORT)
+                        "Image capture was cancelled", Toast.LENGTH_SHORT)
                         .show();
             } else {
                 // failed to capture image
@@ -212,10 +213,10 @@ public class LettuceActivity extends Activity {
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
                 Locale.getDefault()).format(new Date());
+        imageFileName = "IMG" + timeStamp + ".jpg";
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + "IMG_" + timeStamp + ".jpg");
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + imageFileName);
         } else {
             return null;
         }
@@ -235,7 +236,7 @@ public class LettuceActivity extends Activity {
 
         // downsizing image as it throws OutOfMemory Exception for larger
         // images
-        options.inSampleSize = 8;
+        options.inSampleSize = 4;
         
         Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
 
@@ -246,20 +247,19 @@ public class LettuceActivity extends Activity {
           // Convert it to byte
           ByteArrayOutputStream stream = new ByteArrayOutputStream();
           // Compress image to lower quality scale 1 - 100
-          bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+          bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
           byte[] image = stream.toByteArray();
 
           // Create the ParseFile
-          ParseFile file = new ParseFile("image.png", image);
+          ParseFile file = new ParseFile(imageFileName, image);
           // Upload the image into Parse Cloud
           file.saveInBackground();
 
           // Create a New Class called "Photo" in Parse
           ParseObject imgupload = new ParseObject("ImageUpload");
 
-          // Create a column named "ImageName" and set the string
-          // TODO change the name to date format like above          
-          imgupload.put("ImageName", "ImageName");
+          // Create a column named "ImageName" and set the string          
+          imgupload.put("ImageName", imageFileName);
 
           // Create a column named "ImageFile" and insert the image
           imgupload.put("Photo", file);
@@ -274,13 +274,13 @@ public class LettuceActivity extends Activity {
 	
 	
 	// Test parse action
-	public void savePlace () {
-		ParseObject post = new ParseObject("Post");
-		post.put("place", "McDonalds");
-		post.put("playerAddress", "Burger Road");
-		post.put("placeCoordinates", "1.232,1.232");
-		post.saveInBackground();
-	}
+//	public void savePlace () {
+//		ParseObject post = new ParseObject("Post");
+//		post.put("place", "McDonalds");
+//		post.put("playerAddress", "Burger Road");
+//		post.put("placeCoordinates", "1.232,1.232");
+//		post.saveInBackground();
+//	}
 	
 	/**
 	 * 
