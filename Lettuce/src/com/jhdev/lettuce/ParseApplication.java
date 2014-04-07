@@ -16,7 +16,7 @@ public class ParseApplication extends Application {
 	    Parse.initialize(this, "H43u08age9NuU2KuJ2O4lBnEFeCaD7IPu8Tav5WF", "RL5XW3UOfAoecHdWIgQjG27wEp5mwB0gmfhum9to");
 	    
 	    //Automatic user interferes with getCurrentUser and currentUser == null
-		ParseUser.enableAutomaticUser();
+		//ParseUser.enableAutomaticUser();
 		
 		ParseACL defaultACL = new ParseACL();
 	    
