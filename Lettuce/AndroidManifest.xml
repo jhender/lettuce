@@ -34,8 +34,8 @@
         <activity
             android:name="com.jhdev.lettuce.SingleItemView"
             android:parentActivityName="com.jhdev.lettuce.LettuceActivity"
-            android:screenOrientation="portrait" >
-
+            android:screenOrientation="portrait"
+			android:label="">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

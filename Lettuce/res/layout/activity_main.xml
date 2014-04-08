@@ -5,9 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.jhdev.lettuce.MainActivity"
     tools:ignore="MergeRootFrame" >
-
-
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,25 +30,6 @@
         
         
     </LinearLayout>
-    
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_gravity="bottom"
-         android:orientation="vertical" >
-
-<!--          <Button
-             android:id="@+id/uploadButton"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="Take Pic" /> -->
-    </LinearLayout>
-
-<!--      <ImageView
-         android:id="@+id/imgPreview"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         /> -->
 
 </FrameLayout>
 

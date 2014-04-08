@@ -54,6 +54,7 @@ public class SingleItemView extends Activity {
 
             } else {
               // something went wrong
+            	
             }
           }
         });
