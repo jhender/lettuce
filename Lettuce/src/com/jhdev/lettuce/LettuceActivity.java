@@ -309,7 +309,8 @@ public class LettuceActivity extends Activity {
                 for (ParseObject po : ob) {
                 	//retrieve objectID
                 	//TODO retrieve Title?
-                	String poID = (String) po.get("Title");
+                	//String poID = (String) po.get("Title");
+                	String poID = (String) po.getObjectId();
 
                 	//retrieve the image file
                     ParseFile image = (ParseFile) po.get("Photo");
