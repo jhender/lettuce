@@ -1,6 +1,5 @@
 package com.jhdev.lettuce;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
