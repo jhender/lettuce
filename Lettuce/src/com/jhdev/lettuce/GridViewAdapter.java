@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class GridViewAdapter extends BaseAdapter {
 
@@ -33,6 +34,7 @@ public class GridViewAdapter extends BaseAdapter {
 
    public class ViewHolder {
        ImageView photo;
+       TextView objectID;
    }
 
    @Override
@@ -57,15 +59,17 @@ public class GridViewAdapter extends BaseAdapter {
            view = inflater.inflate(R.layout.gridview_item, null);
            // Locate the ImageView in gridview_item.xml
            holder.photo = (ImageView) view.findViewById(R.id.photo);
-           //squareImageView = (SquareImageView) view.findViewById(R.id.photo); 
-           //holder.photo = (SquareImageView) view.findViewById(R.id.photo);   maybe this is done in the imageLoader.DisplayImage instead
+           holder.objectID = (TextView) view.findViewById(R.id.textView1);
            view.setTag(holder);
-       } else {
+       } else { 
            holder = (ViewHolder) view.getTag();
        }
        // Load image into GridView
        imageLoader.DisplayImage(photoarraylist.get(position).getPhoto(),
                holder.photo);
+       // Load objectID text into GridView   
+       holder.objectID.setText(photoarraylist.get(position).getObjectID());
+       
        // Capture GridView item click
        view.setOnClickListener(new OnClickListener() {
 
@@ -76,6 +80,7 @@ public class GridViewAdapter extends BaseAdapter {
                // Pass all data photo
                intent.putExtra("photo", photoarraylist.get(position)
                        .getPhoto());
+               intent.putExtra("objectID", photoarraylist.get(position).getObjectID());
                context.startActivity(intent);
            }
        });

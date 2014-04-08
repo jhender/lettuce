@@ -302,14 +302,20 @@ public class LettuceActivity extends Activity {
                 ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
                         "ImageUpload");
                 // Locate the column named "position" in Parse.com and order list
-                // by ascending
+                // by descending order of created.
                 query.orderByDescending("createdAt");
                 query.setLimit(15);
                 ob = query.find();
-                for (ParseObject country : ob) {
-                    ParseFile image = (ParseFile) country.get("Photo");
+                for (ParseObject po : ob) {
+                	//retrieve objectID
+                	//TODO retrieve Title?
+                	String poID = (String) po.get("Title");
+
+                	//retrieve the image file
+                    ParseFile image = (ParseFile) po.get("Photo");
                     PhotoList map = new PhotoList();
                     map.setPhoto(image.getUrl());
+                    map.setObjectID(poID);
                     photoarraylist.add(map);
                 }
             } catch (ParseException e) {
@@ -324,11 +330,9 @@ public class LettuceActivity extends Activity {
             // Locate the gridview in gridview_main.xml
             gridview = (GridView) findViewById(R.id.gridview);
             // Pass the results into ListViewAdapter.java
-            adapter = new GridViewAdapter(LettuceActivity.this,
-                    photoarraylist);
+            adapter = new GridViewAdapter(LettuceActivity.this,photoarraylist);
             // Binds the Adapter to the ListView
             gridview.setAdapter(adapter);
-            // TODO adapter problem
             // Close the progressdialog
             mProgressDialog.dismiss();
         }

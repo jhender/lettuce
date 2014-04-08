@@ -6,10 +6,12 @@ import android.os.Bundle;
 //import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
  
 public class SingleItemView extends Activity {
  
     String photo;
+    String objectID;
     ImageLoader imageLoader = new ImageLoader(this);
  
     @Override
@@ -22,12 +24,17 @@ public class SingleItemView extends Activity {
         Intent i = getIntent();
         // Get the intent from ListViewAdapter
         photo = i.getStringExtra("photo");
+        objectID = i.getStringExtra("objectID");
  
         // Locate the ImageView in singleitemview.xml
         ImageView imgphoto = (ImageView) findViewById(R.id.photo);
  
         // Load image into the ImageView
         imageLoader.DisplayImage(photo, imgphoto);
+        
+        // Local TextView in singleitemview.xml and set text
+        TextView title = (TextView) findViewById(R.id.textView1);
+        title.setText(objectID);
     }
     
     @Override
