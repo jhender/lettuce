@@ -34,7 +34,7 @@ public class GridViewAdapter extends BaseAdapter {
 
    public class ViewHolder {
        ImageView photo;
-       TextView objectID;
+       TextView title;
    }
 
    @Override
@@ -59,7 +59,7 @@ public class GridViewAdapter extends BaseAdapter {
            view = inflater.inflate(R.layout.gridview_item, null);
            // Locate the ImageView in gridview_item.xml
            holder.photo = (ImageView) view.findViewById(R.id.photo);
-           holder.objectID = (TextView) view.findViewById(R.id.textView1);
+           holder.title = (TextView) view.findViewById(R.id.textView1);
            view.setTag(holder);
        } else { 
            holder = (ViewHolder) view.getTag();
@@ -67,8 +67,8 @@ public class GridViewAdapter extends BaseAdapter {
        // Load image into GridView
        imageLoader.DisplayImage(photoarraylist.get(position).getPhoto(),
                holder.photo);
-       // Load objectID text into GridView   
-       holder.objectID.setText(photoarraylist.get(position).getObjectID());
+       // Load title text into GridView   
+       holder.title.setText(photoarraylist.get(position).getTitle());
        
        // Capture GridView item click
        view.setOnClickListener(new OnClickListener() {

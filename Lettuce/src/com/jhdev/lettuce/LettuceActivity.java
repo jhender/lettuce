@@ -22,7 +22,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,9 +36,8 @@ import com.parse.ParseUser;
 public class LettuceActivity extends Activity {
 	 
 	//Define stuff
-	//private List<ParseObject> Posts;	
 	TextView textView;	
-	Button uploadButton;
+	//Button uploadButton;
 	static String imageFileName;
 	
 	// Activity request codes
@@ -49,9 +47,7 @@ public class LettuceActivity extends Activity {
     // directory name to store captured images and videos
     private static final String IMAGE_DIRECTORY_NAME = "Lettuce";
  
-    private Uri fileUri; // file url to store image/video
-    //private ImageView imgPreview;	
-    
+    private Uri fileUri; // file URI to store image/video    
     GridView gridview;
     List<ParseObject> ob;
     ProgressDialog mProgressDialog;
@@ -66,22 +62,6 @@ public class LettuceActivity extends Activity {
 		//Parse tracking how many times your app is opened
 		ParseAnalytics.trackAppOpened(getIntent());
 		
-		//Run a test Parse action
-		//savePlace();
-
-		//Show camera image taken
-		//imgPreview = (ImageView) findViewById(R.id.imgPreview);		
-		
-//		//Locate the button
-//		uploadButton = (Button) findViewById(R.id.uploadButton);
-//		//Capture button click
-//		uploadButton.setOnClickListener(new View.OnClickListener() {	
-//			@Override
-//			public void onClick(View arg0) {
-//				captureImage();
-//			}				
-//		});		
-//		
 		new RemoteDataTask().execute();
 	} //end OnCreate
 	
@@ -89,6 +69,7 @@ public class LettuceActivity extends Activity {
      * Capturing Camera Image will launch camera app request image capture
      */
     private void captureImage() {
+    	//TODO upgrade to camera or filepicker
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
  
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
@@ -234,16 +215,11 @@ public class LettuceActivity extends Activity {
         // bitmap factory
         BitmapFactory.Options options = new BitmapFactory.Options();
 
-        // downsizing image as it throws OutOfMemory Exception for larger
-        // images
+        // downsizing image as it throws OutOfMemory Exception for larger images
         options.inSampleSize = 4;
         
         Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
-
-//        imgPreview.setImageBitmap(bitmap);    	    
-          // Locate the image in res > drawable-hdpi
-//          Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-          
+         
 		// Convert it to byte
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		// Compress image to lower quality scale 1 - 100
@@ -261,19 +237,9 @@ public class LettuceActivity extends Activity {
 		startActivityForResult(intent, 1);	          
   }	
 	
-	
-	// Test parse action
-//	public void savePlace () {
-//		ParseObject post = new ParseObject("Post");
-//		post.put("place", "McDonalds");
-//		post.put("playerAddress", "Burger Road");
-//		post.put("placeCoordinates", "1.232,1.232");
-//		post.saveInBackground();
-//	}
-	
 	/**
 	 * 
-	 * This loads the items for the gridview
+	 * Next section loads the items for the gridview
 	 *
 	 */
 	
@@ -307,16 +273,16 @@ public class LettuceActivity extends Activity {
                 query.setLimit(15);
                 ob = query.find();
                 for (ParseObject po : ob) {
-                	//retrieve objectID
-                	//TODO retrieve Title?
-                	//String poID = (String) po.get("Title");
-                	String poID = (String) po.getObjectId();
+                	//retrieve objectID and Title
+                	String stringTitle = (String) po.get("Title");
+                	String stringObjectID = (String) po.getObjectId();
 
                 	//retrieve the image file
                     ParseFile image = (ParseFile) po.get("Photo");
                     PhotoList map = new PhotoList();
                     map.setPhoto(image.getUrl());
-                    map.setObjectID(poID);
+                    map.setObjectID(stringObjectID);
+                    map.setTitle(stringTitle);
                     photoarraylist.add(map);
                 }
             } catch (ParseException e) {
@@ -392,7 +358,8 @@ public class LettuceActivity extends Activity {
     // User logout from Parse.com back end. 
     private void parseLogout () {  
     	//TODO check if user is logged in?; do not let Automatic Anonymous Users Log Out
-		ParseUser.logOut();
+		ParseUser.logOut();            
+		Toast.makeText(this, "You are logged out.", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, ParseLoginActivity.class);
 		startActivity(intent);
     }
