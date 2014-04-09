@@ -4,6 +4,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -41,17 +42,26 @@ public class SingleItemView extends Activity {
         // Local TextView in singleitemview.xml and set text
         final TextView title = (TextView) findViewById(R.id.textView1);
         final TextView description = (TextView) findViewById(R.id.textView2);
+        final TextView usernametextview = (TextView) findViewById(R.id.textView3);
         
         //title.setText(objectID);
         
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ImageUpload");
+        query.include("createdBy");
         query.getInBackground(objectID, new GetCallback<ParseObject>() {
           public void done(ParseObject object, ParseException e) {
             if (e == null) {
               // retrieved object.
             	title.setText(object.getString("Title"));
             	description.setText(object.getString("Description"));
-
+            	
+            	// getting the user who created the Game
+            	ParseUser createdByUser = object.getParseUser("createdBy");
+            	if (createdByUser != null) {
+            		String username;
+            		username = createdByUser.getUsername();
+            		usernametextview.setText(username);
+            	}            	
             } else {
               // something went wrong
             	

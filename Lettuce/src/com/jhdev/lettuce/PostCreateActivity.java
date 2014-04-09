@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -95,6 +96,10 @@ public class PostCreateActivity extends Activity {
 
       imgupload.put("Title", stringTitle);
       imgupload.put("Description", stringDescription);
+      
+      //set user who created this. TODO add check that user is logged in.
+      imgupload.put("createdBy", ParseUser.getCurrentUser());
+      
       // Create the class and the columns
       imgupload.saveInBackground();
 
