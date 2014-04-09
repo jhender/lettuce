@@ -3,6 +3,7 @@ package com.jhdev.lettuce;
 import java.io.ByteArrayOutputStream;
 
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -46,8 +47,7 @@ public class PostCreateActivity extends Activity {
         
         btnSave = (Button) findViewById(R.id.saveButton1);
         final EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);        
-        final EditText editTextDescription = (EditText) findViewById(R.id.editTextDescription);        
-        
+        final EditText editTextDescription = (EditText) findViewById(R.id.editTextDescription);                
         
 		//code that uploads an image to Parse immediately.
         //if user presses back or cancels, file is still on server but not linked to a imageUpload.
@@ -99,6 +99,12 @@ public class PostCreateActivity extends Activity {
       
       //set user who created this. TODO add check that user is logged in.
       imgupload.put("createdBy", ParseUser.getCurrentUser());
+      
+      //GeoPoint. Generate and save Location
+      //TODO get real location
+      ParseGeoPoint point = new ParseGeoPoint(40.0, -30.0);
+
+      imgupload.put("geoPoint", point);      
       
       // Create the class and the columns
       imgupload.saveInBackground();
