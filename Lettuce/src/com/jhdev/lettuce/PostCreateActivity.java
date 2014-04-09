@@ -96,7 +96,7 @@ public class PostCreateActivity extends Activity {
 
       imgupload.put("Title", stringTitle);
       imgupload.put("Description", stringDescription);
-      
+        
       //set user who created this. TODO add check that user is logged in.
       imgupload.put("createdBy", ParseUser.getCurrentUser());
       
@@ -109,7 +109,7 @@ public class PostCreateActivity extends Activity {
       // Create the class and the columns
       imgupload.saveInBackground();
 
-      // Show a simple toast message
+      // Show a simple toast message   
       Toast.makeText(PostCreateActivity.this, "Image Uploaded",
               Toast.LENGTH_SHORT).show();
       
