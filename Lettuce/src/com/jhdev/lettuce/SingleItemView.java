@@ -2,6 +2,7 @@ package com.jhdev.lettuce;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -43,6 +44,7 @@ public class SingleItemView extends Activity {
         final TextView title = (TextView) findViewById(R.id.textView1);
         final TextView description = (TextView) findViewById(R.id.textView2);
         final TextView usernametextview = (TextView) findViewById(R.id.textView3);
+        final TextView location = (TextView) findViewById(R.id.textViewLocation);
         
         //title.setText(objectID);
         
@@ -54,6 +56,10 @@ public class SingleItemView extends Activity {
               // retrieved object.
             	title.setText(object.getString("Title"));
             	description.setText(object.getString("Description"));
+            	ParseGeoPoint userLocation = (ParseGeoPoint) object.getParseGeoPoint("geoPoint");
+            	String coor = String.valueOf(userLocation.getLatitude()) + ", " + String.valueOf(userLocation.getLongitude());
+            	location.setText(coor);
+            	
             	
             	// getting the user who created the Game
             	ParseUser createdByUser = object.getParseUser("createdBy");

@@ -211,25 +211,26 @@ public class LettuceActivity extends Activity {
     
     public void uploadImage () {
 		//code that uploads an image to Parse
-    	
-        // bitmap factory
-        BitmapFactory.Options options = new BitmapFactory.Options();
-
-        // downsizing image as it throws OutOfMemory Exception for larger images
-        options.inSampleSize = 4;
-        
-        Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
-         
-		// Convert it to byte
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		// Compress image to lower quality scale 1 - 100
-		bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-		byte[] image = stream.toByteArray();
-		
-		// Create the ParseFile
-		ParseFile file = new ParseFile(imageFileName, image);
-		// Upload the image into Parse Cloud
-		file.saveInBackground();
+//    	
+//        // bitmap factory
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//
+//        // downsizing image as it throws OutOfMemory Exception for larger images
+//        options.inSampleSize = 8;
+//        
+//        Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
+//         
+//		// Convert it to byte
+//		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//		// Compress image to lower quality scale 1 - 100
+//		bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+//		byte[] image = stream.toByteArray();
+//		
+//		// Create the ParseFile
+//		ParseFile file = new ParseFile(imageFileName, image);
+//		// Upload the image into Parse Cloud
+//		file.saveInBackground();
+//    	Log.d("LA", "uploadImagestart");
 		  
 		Intent intent = new Intent(this, PostCreateActivity.class);
 		intent.setData(fileUri);

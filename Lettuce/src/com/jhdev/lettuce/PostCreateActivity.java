@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,12 +39,11 @@ public class PostCreateActivity extends Activity {
         
         //Receive image from main activity
         fileUri = getIntent().getData();
+    	Log.d("PostCreateAct", "getfileURIdata");
+
         imageFileName = getIntent().getStringExtra("filename");
         //Toast.makeText(PostCreateActivity.this, "Image: " + imageFileName, Toast.LENGTH_LONG).show();
-        
-        //Set image into the preview box
-        imgPreview = (ImageView) findViewById(R.id.imgPreview);
-        imgPreview.setImageURI(fileUri);
+
         
         btnSave = (Button) findViewById(R.id.saveButton1);
         final EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);        
@@ -56,22 +56,35 @@ public class PostCreateActivity extends Activity {
         BitmapFactory.Options options = new BitmapFactory.Options();
 
         // down-sizing image as it throws OutOfMemory Exception for larger
-        // images
-        options.inSampleSize = 4;
+        // images, especially on older devices
+        options.inSampleSize = 8;
+        //check out ways to reduce load size. options.inJustDecodeBounds = true;
+        //http://developer.android.com/training/displaying-bitmaps/load-bitmap.html
         
         Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
-          
+    	Log.d("PostCreateAct", "decodeFiledone");
+        
+        //Set image into the preview box
+        imgPreview = (ImageView) findViewById(R.id.imgPreview);
+        imgPreview.setImageBitmap(bitmap);
+    	Log.d("PostCreateAct", "getImagepreview");
+    	
 		// Convert it to byte
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		// Compress image to lower quality scale 1 - 100
 		bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
 		byte[] image = stream.toByteArray();
+    	Log.d("PostCreateAct", "compress done");
+    	
+
+
 		
 		// Create the ParseFile
 		file = new ParseFile(imageFileName, image);
 		// Upload the image into Parse Cloud
 		file.saveInBackground();
-        
+    	Log.d("PostCreateAct", "file saved");
+
 
 		btnSave.setOnClickListener(new View.OnClickListener() {	
 			@Override
